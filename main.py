@@ -1,42 +1,48 @@
+"""
+This is the main entry point for our GitHub repository management tool.
+It provides a conversational interface for interacting with GitHub operations.
+"""
+
 from github_agent import GitHubAgent
 
 
 def main():
-    """Example usage of the GitHub agent."""
+    """GitHub repository management tool with conversational interface."""
 
+    # Initialize our GitHub agent
     agent = GitHubAgent()
 
-    print("=== Example 1: List All Branches ===")
-    list_branches_request = "List all branches in the repository 'myuser/my-awesome-project'"
+    # Welcome message
+    print("Hey! How can I help you today?")
+    print("You can ask me to:")
+    print("  - Create a PR (e.g., 'create me a PR in the repo my-org/my-repo from branch feature-x to main')")
+    print("  - List branches (e.g., 'list all open branches in my-org/my-repo')")
+    print("Type 'exit' or 'quit' to end the conversation.\n")
 
-    list_branches_response = agent.run(list_branches_request)
-    print("Response:", list_branches_response)
-    print("\n" + "="*50 + "\n")
+    while True:
+        try:
+            # Get user input
+            user_input = input("> ").strip()
 
-    # Example 1: Create a pull request with specific parameters
-    print("=== Example 2: Creating a Pull Request ===")
-    create_pr_request = """
-    Create a pull request in the repository 'myuser/my-awesome-project'
-    from branch 'my-branch' to 'main'.
+            # Check for exit command
+            if user_input.lower() in ['exit', 'quit']:
+                print("Goodbye! Have a great day!")
+                break
 
-    Use this title: 'Add user authentication system'
+            # Skip empty input
+            if not user_input:
+                continue
 
-    And this description: 'This PR implements a comprehensive user authentication
-    system including login, registration, password reset, and session management.
+            # Process the request through our agent
+            response = agent.run(user_input)
+            print("\nResponse:", response, "\n")
 
-    Key features:
-    - JWT-based authentication
-    - Password hashing with bcrypt
-    - Email verification
-    - Rate limiting for login attempts
-    - Comprehensive unit tests
+        except KeyboardInterrupt:
+            print("\nGoodbye! Have a great day!")
+            break
+        except Exception as e:
+            print(f"\nOops! Something went wrong: {str(e)}\n")
 
-    Fixes #123'
-    """
-
-    create_pr_response = agent.run(create_pr_request)
-    print("Response:", create_pr_response)
-    print("\n" + "="*50 + "\n")
 
 if __name__ == "__main__":
     main()
