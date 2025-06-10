@@ -31,6 +31,16 @@ class GitHubAgent:
         # Create the workflow graph that defines how our agent processes requests
         self.graph = self._create_graph()
 
+        # We want to store the messages so the agent can maintain context across different requests
+        # For example, this allows the following behaviour:
+        # - User: "List branches in my-org/my-repo"
+        # - Agent: "Here are the branches: ..."
+        # - User: "Create a PR from branch feature-x to main"
+        # - Agent: "Creating PR from feature-x to main"
+        # Notice that we didn't have to provide the repository information again,
+        # since the agent was aware of our previous interaction
+        self._messages = []
+
     def _create_graph(self):
         """Create the LangGraph workflow that defines how our agent processes requests."""
 
@@ -102,6 +112,7 @@ class GitHubAgent:
         When users ask you to create a pull request:
         - Look for phrases like "create PR", "create pull request", "make a PR"
         - Extract the repository owner and name from the format "owner/repo" or phrases like "in repo owner/repo"
+        - If the user has not specified the repository owner and name, try to extract it from the previous messages
         - Extract the source branch (head) and target branch (base) from phrases like "from branch X to Y"
         - If the target branch isn't specified, assume it's "main"
         - Use the create_github_pull_request tool with the appropriate parameters
@@ -110,12 +121,15 @@ class GitHubAgent:
         Always be clear about what actions you're taking and provide helpful feedback.
         Format your responses in a clear, readable way.
         """)
-
-        # Create the initial message list with system context and user input
-        messages = [system_message, HumanMessage(content=user_input)]
+        
+        # Create the message list with system context, previous messages, and new user input
+        messages = [system_message] + self._messages + [HumanMessage(content=user_input)]
 
         # Run the workflow and get the result
         result = self.graph.invoke({"messages": messages})
+        
+        # Store the updated state for next time
+        self._messages = result["messages"]
 
         # Return the content of the last message (the final response)
         return result["messages"][-1].content
