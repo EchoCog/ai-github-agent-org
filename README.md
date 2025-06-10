@@ -8,11 +8,12 @@ using conversational AI.
 
 - 🤖 **Natural Language Interface**: Interact with GitHub using plain English commands
 - 🔧 **Pull Request Creation**: Automatically create PRs with custom titles, descriptions, and branch configurations
-- 🌿 **Branch Management**: List and manage repository branches
+- 🌿 **Branch Management**: List and manage repository branches, including filtering for open branches
 - 🔗 **GitHub API Integration**: Full integration with GitHub's REST API
 - ⚡ **LangGraph Powered**: Built on LangGraph for robust AI workflow management
 - 🛡️ **Error Handling**: Comprehensive error handling and user feedback
 - 🔌 **Extensible**: Easy to add new GitHub operations and tools
+- 💬 **Conversational Context**: Maintains context across multiple interactions for a more natural experience
 
 ## Prerequisites
 
@@ -67,65 +68,63 @@ using conversational AI.
 
 ## Usage
 
-### Basic Usage
+### Interactive Mode
 
-```python
-from github_agent import GitHubAgent
+Run the tool in interactive mode:
 
-# Initialize the agent
-agent = GitHubAgent()
+```bash
+python main.py
+```
 
-# Create a pull request
-response = agent.run("""
-Create a pull request in the repository 'username/repo-name' 
-from branch 'feature-branch' to 'main'. 
-Title: 'Add new feature'
-Description: 'This PR adds an awesome new feature'
-""")
+You'll see a welcome message and can start interacting with the agent:
 
-print(response)
+```
+Hey! How can I help you today?
+You can ask me to:
+  - Create a PR (e.g., 'create me a PR in the repo my-org/my-repo from branch feature-x to main')
+  - List branches (e.g., 'list all open branches in my-org/my-repo')
+Type 'exit' or 'quit' to end the conversation.
+
+> list all open branches in my-org/my-repo
+Response: I'll list all the open branches in my-org/my-repo...
+
+> create me a PR from feature-x to main
+Response: I'll create a pull request from feature-x to main...
 ```
 
 ### Command Examples
 
 #### Creating a Pull Request
 
-```python
-agent.run("""
-Create a pull request in myuser/my-project from branch 'feature/auth' to 'develop'.
-Title: 'Implement user authentication'
-Description: 'Added login, registration, and password reset functionality'
-""")
+```bash
+> create me a PR in myuser/my-project from branch 'feature/auth' to 'develop'
 ```
 
 #### Listing Branches
 
-```python
-agent.run("List all branches in the repository 'myuser/my-project'")
+```bash
+> list all branches in myuser/my-project
 ```
 
-#### Complex PR with Detailed Description
-
-```python
-agent.run("""
-I need to create a pull request for myuser/awesome-app:
-- Source branch: hotfix/security-patch  
-- Target branch: main
-- Title: Fix critical security vulnerability
-- Description: This urgent fix addresses a SQL injection vulnerability. 
-  Includes input sanitization, parameterized queries, and additional tests.
-""")
-```
-
-### Running the Examples
-
-Execute the included example script:
+#### Listing Only Open Branches
 
 ```bash
-python github_agent.py
+> list all open branches in myuser/my-project
 ```
 
-This will run through several example scenarios demonstrating different capabilities.
+### Context Awareness
+
+The agent maintains context across multiple interactions. For example:
+
+```bash
+> list branches in my-org/my-repo
+Response: Here are the branches: ...
+
+> create a PR from feature-x to main
+Response: Creating PR from feature-x to main...
+```
+
+Notice that in the second command, we didn't need to specify the repository again because the agent remembered it from the previous interaction.
 
 ## Dependencies
 
@@ -160,6 +159,7 @@ Lists all branches in a GitHub repository.
 
 - `repo_owner` (str): GitHub username or organization
 - `repo_name` (str): Repository name
+- `open_only` (bool): If True, only return branches that have open pull requests
 
 ## Error Handling
 
