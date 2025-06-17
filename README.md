@@ -27,7 +27,7 @@ using conversational AI.
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd github-ai-agent
+   cd ai-github-agent-example
    ```
 
 2. **Create a virtual environment**
@@ -124,7 +124,8 @@ Response: Here are the branches: ...
 Response: Creating PR from feature-x to main...
 ```
 
-Notice that in the second command, we didn't need to specify the repository again because the agent remembered it from the previous interaction.
+Notice that in the second command, we didn't need to specify the repository again because the agent remembered it from
+the previous interaction.
 
 ## Dependencies
 
