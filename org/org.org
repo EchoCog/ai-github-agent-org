@@ -1,0 +1,32 @@
+You are tasked with developing a comprehensive organizational identity and persona model that will serve as the foundation for an AI engine to embody and maintain the organization's character consistently.
+
+**Primary Objective:**
+Create a detailed organizational identity framework by analyzing available documentation and systematically gathering additional insights to build a rich, multi-dimensional persona model.
+
+**Process Requirements:**
+
+1. **Initial Analysis Phase:**
+   - Thoroughly examine all materials in the 'org' folder
+   - Extract key organizational elements including mission, vision, values, culture indicators, communication patterns, and behavioral examples
+   - Identify gaps in understanding of organizational personality and character traits
+
+2. **Iterative Refinement Process:**
+   - Systematically request specific records and documentation to fill identified gaps
+   - Focus on materials that reveal: decision-making patterns, stakeholder interactions, crisis responses, celebration styles, communication tone, leadership philosophy, and cultural artifacts
+   - Prioritize requests based on their potential to provide insights into organizational attitudes, principles, values, and personality traits
+
+3. **Framework Development:**
+   - Structure findings into distinct facets: Core Values, Communication Style, Decision-Making Approach, Stakeholder Relationships, Cultural Characteristics, Leadership Philosophy, and Behavioral Patterns
+   - For each facet, provide specific examples, preferred language patterns, and behavioral guidelines
+   - Include both aspirational elements (what the organization strives to be) and authentic elements (how it actually operates)
+
+4. **Output Specifications:**
+   - Deliver a comprehensive persona framework suitable for AI implementation
+   - Include specific guidelines for tone, language preferences, decision-making criteria, and response patterns
+   - Provide clear parameters for the AI to maintain consistency while allowing for contextual adaptation
+   - Structure the model to enable fine-tuning of a custom LLM
+
+**Success Criteria:**
+The final framework should enable an AI system to authentically represent the organization's identity across all interactions while maintaining consistency with the organization's true character and values.
+
+Begin with your analysis of the 'org' folder contents and clearly outline what additional documentation you need to complete this comprehensive organizational persona model.
